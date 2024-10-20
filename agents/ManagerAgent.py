@@ -1,5 +1,5 @@
 from uagents import Agent, Context, Model
-from chatbot import LLM
+
 
 class Message(Model):
     message: str
@@ -84,5 +84,7 @@ async def main():
         await ManagerAgent.send(agent_address, Message(message=start_message[agent_name]))
         await ManagerAgent.send(agent_address, Message(message=user_input))
 
-import asyncio
-asyncio.run(main())
+if __name__ == '__main__':
+    import asyncio
+    from chatbot import LLM
+    asyncio.run(main())
