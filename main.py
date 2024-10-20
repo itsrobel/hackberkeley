@@ -9,7 +9,7 @@ CORS(app)
 
 
 @app.route("/realtime")
-def home():
+def realtime():
     return render_template("time_heatmap.html")
 
 
@@ -32,4 +32,3 @@ def home():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
