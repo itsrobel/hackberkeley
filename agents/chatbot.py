@@ -72,9 +72,7 @@ EXS = [
 ]
 
 
-def example():
-    user_msg = input()
-
+def example(message):
     for ex in EXS:
         for agent, response in ex.items():
             print(f"{agent}: {response}")
