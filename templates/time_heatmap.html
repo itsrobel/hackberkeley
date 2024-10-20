@@ -255,6 +255,11 @@
               message: messageInput.value,
             },
           });
+
+          response.data.map((res) => {
+              addMessage("AI", res)
+
+          } )
           addMessage("AI", response.data); //
           messageInput.value = "";
           // Simulate a response after a short delay

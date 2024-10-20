@@ -1,23 +1,23 @@
-import google.generativeai as genai
-import os
-from dotenv import load_dotenv
+# import google.generativeai as genai
+# import os
+# from dotenv import load_dotenv
 
-load_dotenv()
-api_key = os.getenv("API_KEY")
-genai.configure(api_key=os.environ["API_KEY"])
+# load_dotenv()
+# api_key = os.getenv("API_KEY")
+# genai.configure(api_key=os.environ["API_KEY"])
 
 
-def LLM(message):
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    template_prompt = f"""act a as expert in real estate wild fires in the state of california area: answer
-    the following question to the best of your ability in 50 words are less:
+# def LLM(message):
+    # model = genai.GenerativeModel("gemini-1.5-flash")
+    # template_prompt = f"""act a as expert in real estate wild fires in the state of california area: answer
+    # the following question to the best of your ability in 50 words are less:
 
-    question{message}"""
-    response = model.generate_content(template_prompt)
+    # question{message}"""
+    # response = model.generate_content(template_prompt)
 
-    print(response)
-    print(response.text)
-    return response.text
+    # print(response)
+    # print(response.text)
+    # return response.text
 
 
 EXS = [
@@ -73,15 +73,26 @@ EXS = [
 
 
 def example(message):
-    for ex in EXS:
-        for agent, response in ex.items():
-            print(f"{agent}: {response}")
-    return EXS
+    res = []
+    for i in EXS:
+        cur = ''
+        for j in i:
+            if j == "agent" or j == "message":
+                if len(cur) == 0:
+                    cur += i[j] + ': '
+                else:
+                    cur += i[j]
+            else:
+                cur += j + ": " + i[j]
+                
+        cur += '\n'
+        res.append(cur)
+    return res
 
 
 if __name__ == "__main__":
-    # example()
+    print(example("If I'm buying a home in the LA region, what natural disasters should I watch out for?"))
 
-    LLM(
-        "If I'm buying a home in the LA region, what natural disasters should I watch out for?"
-    )
+    # LLM(
+    #     "If I'm buying a home in the LA region, what natural disasters should I watch out for?"
+    # )
