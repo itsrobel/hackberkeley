@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 from agents.ManagerAgent import *
 from agents.chatbot import *
@@ -24,8 +24,10 @@ def demo():
 
 
 @app.route("/llm_call")
-def llm(data):
+def llm():
+    message = request.args.get('message')
     res = example()
+    print(res)
     # [{'agent' : ..., 'message', ...}, {...}, ...]
     return jsonify(res)
 
