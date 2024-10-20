@@ -14,8 +14,13 @@ def realtime():
 
 
 @app.route("/overlay")
-def demo():
+def overlay():
     return render_template("demo_colormap.html")
+
+
+@app.route("/temp")
+def demo():
+    return render_template("demo.html")
 
 
 @app.route("/llm_call")
