@@ -232,7 +232,7 @@
               Send
             </button>
           </form>
-          <div id="chat-container" class="flex flex-col mb-10"></div>
+          <div id="chat-container" class="=bg-white rounded-lg shadow-md mb-10 "></div>
         </div>
       </div>
     </div>
@@ -269,9 +269,16 @@
 
             function addMessage(sender, text) {
               const messageElement = document.createElement("p");
-              let js = (sender=="Bot") ? "end" :"start"
+              let js = (sender=="You") ? "start" :"end"
               console.log(js, sender)
-              messageElement.innerHTML = `<span mb-4 class=" justify-self-${js} m-2 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-blue-300 rounded-md border border-gray-200"> <span class="" >${sender}:</span> ${text}</span>`;
+              messageElement.innerHTML = `
+                <span class="flex justify-${js} m-2 py-2.5 px-5 me-2 mb-2  text-gray-900 focus:outline-none ">
+                <span class="text-sm font-medium bg-blue-300 rounded-md border border-gray-200" >${sender}:${text}</span> </span>
+                `
+              // <div class="flex justify-${js}">
+
+
+              ;
               chatContainer.appendChild(messageElement);
               chatContainer.scrollTop = chatContainer.scrollHeight;
             }
