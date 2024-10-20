@@ -9,7 +9,13 @@ genai.configure(api_key=os.environ["API_KEY"])
 
 def LLM(message):
     model = genai.GenerativeModel("gemini-1.5-flash")
-    response = model.generate_content(message)
+    template_prompt = f"""act a as expert in real estate wild fires in the state of california area: answer
+    the following question to the best of your ability in 50 words are less:
+
+    question{message}"""
+    response = model.generate_content(template_prompt)
+
+    print(response)
     print(response.text)
     return response.text
 
