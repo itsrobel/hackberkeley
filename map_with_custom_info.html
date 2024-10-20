@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_88479050f3b4117a7d11684c921f5386 {
+                #map_50fb1f91bcc63fa2bbea53238539a868 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -39,14 +39,14 @@
 <body>
     
     
-            <div class="folium-map" id="map_88479050f3b4117a7d11684c921f5386" ></div>
+            <div class="folium-map" id="map_50fb1f91bcc63fa2bbea53238539a868" ></div>
         
 </body>
 <script>
     
     
-            var map_88479050f3b4117a7d11684c921f5386 = L.map(
-                "map_88479050f3b4117a7d11684c921f5386",
+            var map_50fb1f91bcc63fa2bbea53238539a868 = L.map(
+                "map_50fb1f91bcc63fa2bbea53238539a868",
                 {
                     center: [40.7128, -74.006],
                     crs: L.CRS.EPSG3857,
@@ -60,24 +60,38 @@
 
         
     
-            var tile_layer_34d3d75da61a648ee81e5d8d305ddf1a = L.tileLayer(
+            var tile_layer_4a599e860af36be4f070c50e63380a09 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
             );
         
     
-            tile_layer_34d3d75da61a648ee81e5d8d305ddf1a.addTo(map_88479050f3b4117a7d11684c921f5386);
+            tile_layer_4a599e860af36be4f070c50e63380a09.addTo(map_50fb1f91bcc63fa2bbea53238539a868);
         
     
-                var lat_lng_popup_df823021e92d16aad7e82c4eb1e0fe42 = L.popup();
-                function latLngPop(e) {
-                    lat_lng_popup_df823021e92d16aad7e82c4eb1e0fe42
-                        .setLatLng(e.latlng)
-                        .setContent("Latitude: " + e.latlng.lat.toFixed(4) +
-                                    "<br>Longitude: " + e.latlng.lng.toFixed(4))
-                        .openOn(map_88479050f3b4117a7d11684c921f5386);
-                    }
-                map_88479050f3b4117a7d11684c921f5386.on('click', latLngPop);
-            
+            var lat_lng_popup_a945609b7cd468f35739f0032e907fa0 = L.popup();
+            function latLngPop(e) {
+                var lat = e.latlng.lat.toFixed(4);
+                var lng = e.latlng.lng.toFixed(4);
+                var custom_info = "Latitude: " + lat + ", Longitude: " + lng + " <br />";
+                
+                // Random temperature variation
+                var temp = ((2.3 + Math.random() * 3) - 1).toFixed(3);
+                
+                custom_info += "NDVI: " + temp + " <br />";
+                
+                custom_info += "Grid Size: 500m x 500m" + " <br />";
+                
+                custom_info += "Importance Score: 4.5 <br />";
+                
+                custom_info += "Source: <a href='https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD13A1'>MODIS_061_MOD13A1</a>";
+                
+                lat_lng_popup_a945609b7cd468f35739f0032e907fa0
+                    .setLatLng(e.latlng)
+                    .setContent(custom_info)
+                    .openOn(map_50fb1f91bcc63fa2bbea53238539a868);
+            }
+            map_50fb1f91bcc63fa2bbea53238539a868.on('click', latLngPop);
+        
 </script>
 </html>
