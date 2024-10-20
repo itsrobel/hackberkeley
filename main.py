@@ -13,15 +13,23 @@ def home():
     return render_template("time_heatmap.html")
 
 
-@app.route("/stats")
+@app.route("/overlay")
 def demo():
     return render_template("demo_colormap.html")
+
 
 @app.route("/llm_call")
 def llm(data):
     res = example()
-     # [{'agent' : ..., 'message', ...}, {...}, ...]
+    # [{'agent' : ..., 'message', ...}, {...}, ...]
     return jsonify(res)
+
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
+
