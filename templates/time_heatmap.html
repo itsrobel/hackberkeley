@@ -232,56 +232,52 @@
               Send
             </button>
           </form>
-          <div id="chat-container" class="=bg-white rounded-lg shadow-md mb-10 "></div>
+          <div
+            id="chat-container"
+            class="=bg-white rounded-lg shadow-md mb-10"
+          ></div>
         </div>
       </div>
     </div>
 
     <script>
-            const chatContainer = document.getElementById("chat-container");
-            const messageForm = document.getElementById("message-form");
-            const messageInput = document.getElementById("message-input");
-            let message_storage = []
-            messageForm.addEventListener("submit", async function (e) {
-              e.preventDefault();
-              const message = messageInput.value.trim();
-              if (message) {
-                addMessage("You", message);
-                const response = await axios.get('http://127.0.0.1:5000/llm_call', {
-                                    params: {
-                                        message: messageInput.value
-                                    }
-                                });
-                console.log(response.data)
-                response.data.mssages.map(msg => {
-                  addMessage(msg.agent, msg.msg)
-                });
-      q
-                messageInput.value = "";
-                // Simulate a response after a short delay
-                //
+      const chatContainer = document.getElementById("chat-container");
+      const messageForm = document.getElementById("message-form");
+      const messageInput = document.getElementById("message-input");
+      let message_storage = [];
+      messageForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const message = messageInput.value.trim();
+        if (message) {
+          addMessage("You", message);
+          const response = await axios.get("http://127.0.0.1:5000/llm_call", {
+            params: {
+              message: messageInput.value,
+            },
+          });
+          addMessage("AI", response.data); //
+          messageInput.value = "";
+          // Simulate a response after a short delay
+          //
 
-                // setTimeout(() => {
-                //   addMessage("Bnkot", "This is a simulated response.");
-                // }, 1000);
-              }
-            });
+          // setTimeout(() => {
+          //   addMessage("Bnkot", "This is a simulated response.");
+          // }, 1000);
+        }
+      });
 
-            function addMessage(sender, text) {
-              const messageElement = document.createElement("p");
-              let js = (sender=="You") ? "start" :"end"
-              console.log(js, sender)
-              messageElement.innerHTML = `
+      function addMessage(sender, text) {
+        const messageElement = document.createElement("p");
+        let js = sender == "You" ? "start" : "end";
+
+        messageElement.innerHTML = `
                 <span class="flex justify-${js} m-2 py-2.5 px-5 me-2 mb-2  text-gray-900 focus:outline-none ">
                 <span class="text-sm font-medium bg-blue-300 rounded-md border border-gray-200" >${sender}:${text}</span> </span>
-                `
-              // <div class="flex justify-${js}">
-
-
-              ;
-              chatContainer.appendChild(messageElement);
-              chatContainer.scrollTop = chatContainer.scrollHeight;
-            }
+                `;
+        // <div class="flex justify-${js}">
+        chatContainer.appendChild(messageElement);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
     </script>
   </body>
   <script>

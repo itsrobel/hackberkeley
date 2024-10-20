@@ -3,6 +3,7 @@ from flask_cors import CORS
 from agents.ManagerAgent import *
 from agents.chatbot import *
 from flask import jsonify
+from agents.chatbot import LLM
 
 app = Flask(__name__)
 CORS(app)
@@ -23,13 +24,15 @@ def demo():
     return render_template("demo.html")
 
 
-@app.route("/llm_call")
+@app.route("/llm_call", methods=["GET"])
 def llm():
-    message = request.args.get('message')
-    res = example()
-    print(res)
+    message = request.args.get("message")
+    print(message)
+
+    # res = example()
+    # print(res)
     # [{'agent' : ..., 'message', ...}, {...}, ...]
-    return jsonify(res)
+    return jsonify(LLM(message))
 
 
 @app.route("/")
