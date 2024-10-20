@@ -81,6 +81,7 @@
     <script src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/pa7_hm.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/pa7_leaflet_hm.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.control.css"
@@ -175,32 +176,29 @@
   </head>
   <body class="bg-gray-700">
     <div class="bg-gray-700 flex items-center justify-center min-h-screen">
-        <div class="flex flex-row justify-center">
+      <div class="flex flex-row justify-center">
+        <div
+          class="folium-map rounded-md p-4"
+          id="map_b8a8c2fb6ac2e079e155e7e89d77202c"
+        ></div>
 
-            <div class="folium-map rounded-md p-4" id="map_b8a8c2fb6ac2e079e155e7e89d77202c"></div>
-
-
-            <div class="flex flex-col ml-8">
-
-                <form id="message-form">
-                  <input
-                    type="text"
-                    id="message-input"
-                    placeholder="Type your message..."
-                    required
-                    class="mb-8 rounded-md"
-                  />
-                  <button type="submit" class="rounded-md bg-purple-500 p-1">Send</button>
-                </form>
-                <div id="chat-container" class="flex flex-col"></div>
-
-            </div>
-
+        <div class="flex flex-col ml-8">
+          <form id="message-form">
+            <input
+              type="text"
+              id="message-input"
+              placeholder="Type your message..."
+              required
+              class="mb-8 rounded-md"
+            />
+            <button type="submit" class="rounded-md bg-purple-500 p-1">
+              Send
+            </button>
+          </form>
+          <div id="chat-container" class="flex flex-col"></div>
         </div>
-
-
+      </div>
     </div>
-
 
     <script>
       const chatContainer = document.getElementById("chat-container");
@@ -212,15 +210,22 @@
         const message = messageInput.value.trim();
         if (message) {
           addMessage("You", message);
-          message_storage.push(messageInput.value)
+          const response = await axios.get('http://127.0.0.1:5000/api/llm_call', {
+                              params: {
+                                  message: massageInput.value
+                              }
+                          });
+          response.data.mssages.map(msg => {
+            addMessage(msg.agent, msg.msg)
+          });
+
           messageInput.value = "";
           // Simulate a response after a short delay
-          setTimeout(() => {
+          //
 
-            // llm fetch("m"
-
-            addMessage("LLM", "This is a simulated response.");
-          }, 1000);
+          // setTimeout(() => {
+          //   addMessage("Bnkot", "This is a simulated response.");
+          // }, 1000);
         }
       });
 
